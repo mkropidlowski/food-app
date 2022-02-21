@@ -1,0 +1,47 @@
+.navbar-container {
+    margin: 0;
+    padding: 0;
+    background-color:#ee7c1e;
+    width: 100%;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.navbar-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-btn img {
+    position: relative;
+    right: 30px;
+}
+.menu-bar {
+    position: relative;
+    top:-5px;
+    right: 10px;
+}
+
+.navbar-btn img:hover {
+    cursor: pointer;
+}
+
+.menu-bar:hover {
+    cursor: pointer;
+}
+
+.bar {
+    width: 27px;
+    height: 3px;
+    margin-top: 6px;
+    background-color: #fff;
+}
+
+@media only screen and (max-width:400px) {
+
+}
