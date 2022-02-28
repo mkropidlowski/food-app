@@ -19,28 +19,28 @@
 
 .navbar-btn img {
     position: relative;
-    right: 30px;
+    right: 10px;
 }
-.menu-bar {
+/* .menu-bar {
     position: relative;
     top:-5px;
     right: 10px;
-}
+} */
 
 .navbar-btn img:hover {
     cursor: pointer;
 }
 
-.menu-bar:hover {
+/* .menu-bar:hover {
     cursor: pointer;
-}
+} */
 
-.bar {
+/* .bar {
     width: 27px;
     height: 3px;
     margin-top: 6px;
     background-color: #fff;
-}
+} */
 
 @media only screen and (max-width:400px) {
 

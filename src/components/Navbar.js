@@ -12,11 +12,6 @@ export default function Navbar() {
         </div>
         <div className="navbar-btn">
             <img src={cart} alt="shopping cart" />
-            <div className="menu-bar">
-                <div className="bar"></div>
-                <div className="bar"></div>
-                <div className="bar"></div>
-            </div>
         </div>
 
         
