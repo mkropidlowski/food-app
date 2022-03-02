@@ -1,0 +1,38 @@
+.food-card {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    box-sizing: border-box;
+    margin-top: 30px;
+    max-width: 800px;
+    background-color: whitesmoke;
+    padding: 15px;
+    border-radius: 10px;
+}
+.food-details {
+    margin-left: 20px;
+}
+
+.food-details__price {
+    font-weight: bold;
+}
+
+.food-details__desc {
+    text-align: justify;
+    max-width: 600px;
+}
+
+.add-to-cart {
+    background-color: #218838;
+    color:#fff;
+    padding: 7px;
+    border-radius: 7px;
+    border:0;
+}
+
+.add-to-cart:hover {
+    cursor: pointer;
+}
+

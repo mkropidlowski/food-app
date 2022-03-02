@@ -1,19 +1,11 @@
 import React from 'react'
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import {useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { projectFirestore } from '../firebase/config'
 import { Link } from 'react-router-dom';
-import { projectFirestore } from '../firebase/config';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import Food from './Food';
+import './Menu.css'
 
 export default function Menu () {
-
 
   const menuList = [
     {
@@ -25,11 +17,7 @@ export default function Menu () {
       "link": "/menu"
     },
     {
-      "text": "Makarony",
-      "link": "/menu"
-    },
-    {
-      "text": "Pierogi",
+      "text": "Dania główne",
       "link": "/menu"
     },
     {
@@ -43,7 +31,7 @@ export default function Menu () {
   ]
 
   const [foodName, setFoodName] = useState('');
-  const [data, setData] = useState('')
+  const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 
   const handleClick = (e) => {
@@ -53,15 +41,16 @@ export default function Menu () {
   }
   const menuListArray = menuList.map((content, i) => {
     return (
-      <Tab component={ Link } to={`${content.link}`} key={i} label={`${content.text}`} onClick={handleClick}/>
+      <ul key={i} className="menu">
+        <li className="menu-links"><Link to={content.link} onClick={handleClick}>{content.text}</Link></li>
+      </ul>
+     
      )
    })
 
-
   useEffect(() => {
-
+ 
       let ref = projectFirestore.collection('food').where('name', '==', foodName)
-
 
       const unsub = ref.onSnapshot((snapshot) => {
           let result = []
@@ -69,65 +58,31 @@ export default function Menu () {
               result.push({ ...doc.data(), id: doc.id})
       
           })
-      
-
+    
           setData(result)
           setError(null)
       }, (error) => {
-          setError('Brak danych.')
+          setError(error, 'Brak danych.')
       })
-
 
       return () => unsub()
 
-  }, [menuListArray])
+  }, [foodName])
   
   return (
-    <Container maxWidth="sm">
-       <Box sx={{bgcolor: 'background.paper' }}>
-      <Tabs
-        value={0}
-        variant="scrollable"
-        scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
-      >
-        {menuListArray}
-      </Tabs>
-    </Box>
-
-    <div>
-      {data && data.map((foodList, i) => (
+    <>
+    <div className="container">
+      <div className="nav">{menuListArray}</div>
       
-    <Card sx={{ maxWidth: 320 }} key={i}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="150"
-          image={foodList.imgSrc}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {foodList.text}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {foodList.desc}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {foodList.price} zł.
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Dodaj
-        </Button>
-      </CardActions>
-    </Card>
-      ))}
+      <div className="food-container">
+        <h2 className="food-container__header">Wybierz interesującą Cię kategorie..</h2>
+        {!data && <p>Ładowanie menu...</p>}
+        {data && <Food foodData={data} text={foodName}/>}
+      </div>
     </div>
+      
+    </>
 
 
-    </Container>
   )
 }

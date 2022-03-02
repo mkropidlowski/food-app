@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Menu from './components/Menu';
 import Navbar from './components/Navbar';
 
+
 function App() {
   return (
     <div className="App">
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/menu">
             <Navbar />
             <Menu />
+            
           </Route>
         </Switch>
       </BrowserRouter>
