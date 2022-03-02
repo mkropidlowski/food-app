@@ -41,9 +41,7 @@ export default function Menu () {
   }
   const menuListArray = menuList.map((content, i) => {
     return (
-      <ul key={i} className="menu">
-        <li className="menu-links"><Link to={content.link} onClick={handleClick}>{content.text}</Link></li>
-      </ul>
+        <li  key={i} className="menu-links"><Link to={content.link} onClick={handleClick}>{content.text}</Link></li>
      
      )
    })
@@ -72,7 +70,12 @@ export default function Menu () {
   return (
     <>
     <div className="container">
-      <div className="nav">{menuListArray}</div>
+      <div className="nav">
+        <ul className="menu">
+        {menuListArray}
+        </ul>
+        </div>
+        
       
       <div className="food-container">
         <h2 className="food-container__header">Wybierz interesującą Cię kategorie..</h2>

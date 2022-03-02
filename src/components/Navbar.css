@@ -17,30 +17,32 @@
     align-items: center;
 }
 
+.navbar-logo > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-logo > a:hover {
+    cursor: pointer;
+}
+
 .navbar-btn img {
     position: relative;
     right: 10px;
 }
-/* .menu-bar {
-    position: relative;
-    top:-5px;
-    right: 10px;
-} */
 
 .navbar-btn img:hover {
     cursor: pointer;
 }
 
-/* .menu-bar:hover {
-    cursor: pointer;
-} */
+.cart-container {
+    display: flex;
+    min-width: 320px;
+    position: absolute;
+    right: 0;
+    
+}
 
-/* .bar {
-    width: 27px;
-    height: 3px;
-    margin-top: 6px;
-    background-color: #fff;
-} */
 
 @media only screen and (max-width:400px) {
 

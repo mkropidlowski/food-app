@@ -36,3 +36,19 @@
     cursor: pointer;
 }
 
+
+@media only screen and (max-width:400px) {
+
+    .img-size {
+        width:100px;
+        height: 100px;
+    }
+    .food-details__desc {
+        width: 150px;
+        text-align: left;
+    }
+
+    .food-card {
+        margin-bottom: 30px;
+    }
+}

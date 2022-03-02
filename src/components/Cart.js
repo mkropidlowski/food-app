@@ -1,13 +1,15 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { projectFirestore } from '../firebase/config'
+import './Cart.css'
 
 export const Cart = ({activePopup, setActivePopup}) => {
 
-    const [newCart, setNewCart] = useState(null)
+    const [newCart, setNewCart] = useState([])
     const [error, setError] = useState(null)
     const [cartItem, setCartItem] = useState([])
 
+   
 
     useEffect(() => {
         let ref = projectFirestore.collection('cart')
@@ -28,63 +30,35 @@ export const Cart = ({activePopup, setActivePopup}) => {
     
     }, [])
 
+    
+    /////////////////////////////////////////////
+
     useEffect(() => {
         let tab = []
         newCart && newCart.map(cartId => {
-            cartId.uid.forEach(foodDetails => {  
                 projectFirestore.collection('food')
-                    .doc(foodDetails)
+                    .doc(cartId.id)
                     .get()
                     .then(doc => {
                         tab.push({...doc.data(), id: doc.id})
                     })
-                setCartItem(tab)
+                    setCartItem(tab)
         })
-    })
+ 
     }, [newCart])
 
-    // let idsFood = 'LGxBFt3WWGzNHDz2Qid8'
-    // const handleDelete = (e) => {
-    //     e.preventDefault()
-    //     let target = e.target.parentElement.parentElement.getAttribute('data-id')
-    //     console.log(target)
+    console.log('new cart,', newCart)
+    console.log('cartitem',cartItem)
 
-    //     let docRef = projectFirestore.doc(`/cart/LGxBFt3WWGzNHDz2Qid8/uid/`)
-    //     docRef.get().then(doc => {
-    //         console.log(doc.data)
-    //     })
-        
-    // }
-
+    
+ 
     const handleDelete = (e) => {
         e.preventDefault()
-
-        let target = 'LGxBFt3WWGzNHDz2Qid8'
+        let target = e.target.parentElement.parentElement.getAttribute('data-id')
 
         projectFirestore.collection('cart').doc(target).delete()
-        // let ref = projectFirestore.collection('cart')
-        // let test = []
-        // ref.onSnapshot((snapshot) => {
-        //     snapshot.docs.forEach(doc => {
-                
-        //         test = doc.data()
-        //         console.log(test.uid[0])
-        //         if (test.uid[0] === 'GZpNeBTfek2SF3OPmZ8P') {
-        //             console.log('równe')
-        //         } else {
-        //             console.log('nie równe')
-        //         }
-        
-        //     })
-
-        //     test.uid.map(xd => {
-        //         console.log(xd)
-        //     })
-        
-        // })
     }
        
-    
 
   return (
       <>
@@ -99,9 +73,13 @@ export const Cart = ({activePopup, setActivePopup}) => {
                 <div className="cart-box__btn">
                     <button className="detele-btn" onClick={handleDelete}>Usuń</button>
                 </div>
+                <div className="bottom-line"></div>
             </div>
             ))}
-           
+            <div className="summary-container">
+            <p className="to-pay">Do zapłaty: </p>
+            <button className="order-btn">Złóż zamówienie</button>
+            </div>
          </div> : null
          }
 

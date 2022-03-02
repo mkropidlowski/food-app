@@ -43,16 +43,6 @@ export default function Food({foodData}) {
 }, [])
 
 
-  let foodArrId = ''
-  let idsFood = 'LGxBFt3WWGzNHDz2Qid8'
-    data && data.map((i) => {
-      foodArrId = i.uid
-      idsFood = i.id
-    })
-
-
-  const ref = projectFirestore.collection('cart').doc(idsFood)
-
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {
       dispatch(action)
@@ -62,10 +52,11 @@ export default function Food({foodData}) {
   const addToCartHandler = async (e) => {
     e.preventDefault()
     let target = e.target.parentElement.parentElement.getAttribute('data-id')
-
+    const ref = projectFirestore.collection('cart').doc(`${target}`)
+  
     try {     
-      const updateDoc = await ref.update({
-          uid: [...foodArrId, target]
+      const updateDoc = await ref.set({
+          
       })
       dispatchIfNotCancelled({ type: "ADDED_DOCUMENT", payload: updateDoc })
     } catch {
@@ -77,7 +68,7 @@ export default function Food({foodData}) {
          {foodData && foodData.map((foodList) => (
         <div className="food-card" key={foodList.id} data-id={foodList.id}>
             <div className="img">
-            <img src={foodList.imgSrc} alt="food img" />
+            <img src={foodList.imgSrc} alt="food img" className="img-size"/>
             </div>
             <div className="food-details">
               <h2 className="food-details__text">{foodList.text}</h2>
