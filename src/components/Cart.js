@@ -47,9 +47,6 @@ export const Cart = ({activePopup, setActivePopup}) => {
  
     }, [newCart])
 
-    console.log('new cart,', newCart)
-    console.log('cartitem',cartItem)
-
     
  
     const handleDelete = (e) => {
@@ -57,6 +54,9 @@ export const Cart = ({activePopup, setActivePopup}) => {
         let target = e.target.parentElement.parentElement.getAttribute('data-id')
 
         projectFirestore.collection('cart').doc(target).delete()
+
+
+
     }
        
 
@@ -76,10 +76,13 @@ export const Cart = ({activePopup, setActivePopup}) => {
                 <div className="bottom-line"></div>
             </div>
             ))}
-            <div className="summary-container">
-            <p className="to-pay">Do zapłaty: </p>
-            <button className="order-btn">Złóż zamówienie</button>
-            </div>
+          
+                  <div className="summary-container">
+                  <p className="to-pay">Do zapłaty: </p>
+                  <button className="order-btn">Złóż zamówienie</button>
+                  </div>
+        
+          
          </div> : null
          }
 

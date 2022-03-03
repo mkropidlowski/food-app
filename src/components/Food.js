@@ -19,7 +19,16 @@ export default function Food({foodData}) {
   const [response, dispatch] = useReducer(firestoreReducer, initialState)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+  const [added, setAdded] = useState()
   const [isCancelled, setIsCancelled] = useState(false)
+  const [showElement, setShowElement] = useState(true)
+
+  useEffect(()=>{
+    setTimeout(()=> {
+      setShowElement(false)
+         }, 3000);
+       },
+   [])
 
   useEffect(() => {
     let ref = projectFirestore.collection('cart')
@@ -51,6 +60,9 @@ export default function Food({foodData}) {
 
   const addToCartHandler = async (e) => {
     e.preventDefault()
+
+    setAdded('Dodano do koszyka')
+
     let target = e.target.parentElement.parentElement.getAttribute('data-id')
     const ref = projectFirestore.collection('cart').doc(`${target}`)
   
@@ -60,11 +72,29 @@ export default function Food({foodData}) {
       })
       dispatchIfNotCancelled({ type: "ADDED_DOCUMENT", payload: updateDoc })
     } catch {
+      console.log(error)
+    } 
+    
+    
+    
 
-    }}
+  }
+
+  const errorHandler = () => {
+    setAdded(null)
+  }
+  
     
   return (
     <div>
+    
+      {
+      added && 
+      ( <div className="notification" onClick={errorHandler}>{added}<span className="notification-close">x</span></div> 
+      )} 
+    
+
+     
          {foodData && foodData.map((foodList) => (
         <div className="food-card" key={foodList.id} data-id={foodList.id}>
             <div className="img">
