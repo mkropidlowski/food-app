@@ -16,7 +16,6 @@ function App() {
           <Route exact path="/menu">
             <Navbar />
             <Menu />
-            
           </Route>
         </Switch>
       </BrowserRouter>

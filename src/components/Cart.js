@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { projectFirestore } from '../firebase/config'
 import './Cart.css'
 
@@ -8,7 +9,7 @@ export const Cart = ({activePopup, setActivePopup}) => {
     const [newCart, setNewCart] = useState([])
     const [error, setError] = useState(null)
     const [cartItem, setCartItem] = useState([])
-
+    
    
 
     useEffect(() => {
@@ -58,8 +59,18 @@ export const Cart = ({activePopup, setActivePopup}) => {
 
 
     }
-       
 
+
+    let sum = []
+    let summaryPrice
+     cartItem && cartItem.forEach(count => {
+        sum.push(count.price)
+        summaryPrice = sum.reduce((a, b) => a + b, 0)
+        
+    })
+
+       
+     
   return (
       <>
          {activePopup ? <div className="popup">
@@ -78,8 +89,10 @@ export const Cart = ({activePopup, setActivePopup}) => {
             ))}
           
                   <div className="summary-container">
-                  <p className="to-pay">Do zapłaty: </p>
+                  <p className="to-pay">Do zapłaty: { summaryPrice } zł </p>
+                  <Link to={`/final/${summaryPrice}`}>
                   <button className="order-btn">Złóż zamówienie</button>
+                  </Link>
                   </div>
         
           
